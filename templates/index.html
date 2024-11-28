@@ -6,27 +6,6 @@
     <title>Leaderboard</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="background-layer b1"></div>
-    <div class="background-layer b2"></div>
-    <div class="background-layer b3"></div>
-    <div class="background-layer b4"></div>
-    <div class="background-layer b5"></div>
-    <div class="background-layer b6"></div>
-
-    <div class="leaderboard-container">
-        <div class="leaderboard">
-            <h1>Leaderboard</h1>
-            <table id="leaderboard-table">
-                <tr>
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
-            </table>
-        </div>
-    </div>
-
     <script>
         function fetchLeaderboard() {
             fetch('https://my-flask-leaderboard.onrender.com/leaderboard')
@@ -58,5 +37,23 @@
         // Initial fetch when the page loads
         document.addEventListener('DOMContentLoaded', fetchLeaderboard);
     </script>
+</head>
+<body>
+    <div class="background-layer b1"></div>
+    <div class="background-layer b2"></div>
+    <div class="background-layer b3"></div>
+    <div class="background-layer b4"></div>
+    <div class="background-layer b5"></div>
+    <div class="background-layer b6"></div>
+
+    <div class="leaderboard">
+        <h1>Leaderboard</h1>
+        <table id="leaderboard-table">
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
