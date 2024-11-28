@@ -1,10 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from waitress import serve
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins for all routes
+CORS(app)
 
 leaderboard = []
+
+@app.route('/')
+def home():
+    return "Welcome to the Flask Leaderboard App!"
 
 @app.route('/submit_score', methods=['POST'])
 def submit_score():
@@ -18,9 +23,8 @@ def submit_score():
 
 @app.route('/leaderboard', methods=['GET'])
 def get_leaderboard():
-    # Sort leaderboard by score in descending order
     sorted_leaderboard = sorted(leaderboard, key=lambda x: x['score'], reverse=True)
     return jsonify(sorted_leaderboard)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    serve(app, host='0.0.0.0', port=5000)
