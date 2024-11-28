@@ -2,6 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
     overflow: hidden;
     font-family: Arial, sans-serif;
     display: flex;
@@ -14,44 +15,45 @@ body, html {
     position: fixed;
     top: 0;
     left: 0;
-    width: 200%;
-    height: 100%;
+    width: 120%; /* Ensure it covers the full width */
+    height: 100%; /* Ensure it covers the full height */
     background-repeat: repeat-x;
+    background-size: cover; /* Make sure the image covers the entire element */
     animation: scroll 60s linear infinite;
 }
 
 .b1 {
-    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b1.png');
+    background-image: url('b1.png');
     z-index: 1;
     animation-duration: 60s;
 }
 
 .b2 {
-    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b2.png');
+    background-image: url('b2.png');
     z-index: 2;
     animation-duration: 50s;
 }
 
 .b3 {
-    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b3.png');
+    background-image: url('b3.png');
     z-index: 3;
     animation-duration: 40s;
 }
 
 .b4 {
-    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b4.png');
+    background-image: url('b4.png');
     z-index: 4;
     animation-duration: 30s;
 }
 
 .b5 {
-    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b5.png');
+    background-image: url('b5.png');
     z-index: 5;
     animation-duration: 20s;
 }
 
 .b6 {
-    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b6.png');
+    background-image: url('b6.png');
     z-index: 6;
     animation-duration: 10s;
 }
@@ -68,6 +70,7 @@ body, html {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center; /* Ensures content inside leaderboard is centered */
 }
 
 h1 {
@@ -83,7 +86,7 @@ table {
 
 th, td {
     padding: 10px;
-    text-align: left;
+    text-align: center; /* Centers text inside table cells */
     border-bottom: 1px solid #ddd;
 }
 
