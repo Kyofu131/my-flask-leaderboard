@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
-    <link rel="icon" href="favicon-32x32.ico" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,6 +40,37 @@
             background-color: #f4f4f4;
         }
     </style>
+    <script>
+        function fetchLeaderboard() {
+            fetch('https://my-flask-leaderboard.onrender.com/leaderboard')
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('leaderboard-table');
+                    table.innerHTML = `
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>`;
+                    data.forEach(player => {
+                        const row = document.createElement('tr');
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = player.name;
+                        const scoreCell = document.createElement('td');
+                        scoreCell.textContent = player.score;
+                        row.appendChild(nameCell);
+                        row.appendChild(scoreCell);
+                        table.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Fetch the leaderboard every 5 seconds
+        setInterval(fetchLeaderboard, 5000);
+
+        // Initial fetch when the page loads
+        document.addEventListener('DOMContentLoaded', fetchLeaderboard);
+    </script>
 </head>
 <body>
     <div class="leaderboard">
@@ -51,28 +82,5 @@
             </tr>
         </table>
     </div>
-    <script>
-        fetch('https://my-flask-leaderboard-2.onrender.com/leaderboard')
-            .then(response => response.json())
-            .then(data => {
-                const table = document.getElementById('leaderboard-table');
-                table.innerHTML = `
-                    <tr>
-                        <th>Name</th>
-                        <th>Score</th>
-                    </tr>`;
-                data.forEach(player => {
-                    const row = document.createElement('tr');
-                    const nameCell = document.createElement('td');
-                    nameCell.textContent = player.name;
-                    const scoreCell = document.createElement('td');
-                    scoreCell.textContent = player.score;
-                    row.appendChild(nameCell);
-                    row.appendChild(scoreCell);
-                    table.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-    </script>
 </body>
 </html>
