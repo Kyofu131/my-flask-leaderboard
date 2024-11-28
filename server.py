@@ -1,11 +1,17 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
+from waitress import serve
 import os
 
 app = Flask(__name__)
 CORS(app)
 
-leaderboard = []
+# Sample leaderboard data
+leaderboard = [
+    {'name': 'Alice', 'score': 150},
+    {'name': 'Bob', 'score': 120},
+    {'name': 'Charlie', 'score': 100}
+]
 
 @app.route('/')
 def home():
@@ -35,4 +41,4 @@ def get_leaderboard():
     return jsonify(sorted_leaderboard)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    serve(app, host='0.0.0.0', port=8000)
