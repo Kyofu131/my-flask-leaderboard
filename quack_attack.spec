@@ -5,7 +5,7 @@ a = Analysis(
     ['quack_attack.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('Assets', 'Assets')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

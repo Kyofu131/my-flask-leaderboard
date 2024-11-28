@@ -1281,7 +1281,7 @@ def text_input(screen, prompt, font, clock):
     return text
 
 def submit_score(name, score):
-    url = 'https://your-app-name.onrender.com/submit_score'
+    url = 'https://my-flask-leaderboard.onrender.com/submit_score'
     data = {'name': name, 'score': score}
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, json=data, headers=headers)
@@ -1291,10 +1291,16 @@ def submit_score(name, score):
         print("Failed to submit score.")
 
 # Game over screen function
-def game_over_screen():
+def game_over_screen(current_level):
     global score, best_score
 
-    name = text_input(screen, "Enter your name: ", kenney_font_36, clock)  # Display on-screen input prompt with Kenney font
+    # Skip name input for levels 1 to 10 and Endless Mode
+    if current_level != "Endless Mode" and current_level != 1:
+        name = None
+    else:
+        name = text_input(screen, "Enter your name: ", kenney_font_36,
+                          clock)  # Display on-screen input prompt with Kenney font
+
     if name:  # If a name is entered
         submit_score(name, score)  # Submit the score to the server
 
@@ -1415,7 +1421,7 @@ def game_loop(level):
             return "menu"
         if lives <= 0:
             game_over = True
-            return game_over_screen()
+            return game_over_screen(level)  # Pass the current level
 
         pygame.display.flip()
         clock.tick(60)
@@ -1526,11 +1532,11 @@ def endless_game_loop():
         # Check for level completion
         if lives <= 0:
             game_over = True
-            return game_over_screen()
+            return game_over_screen("Endless Mode")  # Pass "Endless Mode" as the level
 
         # Increase enemy spawn rate every minute
-        if pygame.time.get_ticks() - enemy_spawn_rate_timer >= 60000:  # Every 60 seconds
-            max_enemies_on_screen += 1
+        if pygame.time.get_ticks() - enemy_spawn_rate_timer >= 30000:  # Every 60 seconds
+            max_enemies_on_screen += 2
             enemy_spawn_rate_timer = pygame.time.get_ticks()  # Reset the timer
 
         pygame.display.flip()

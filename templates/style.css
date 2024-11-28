@@ -1,0 +1,95 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.background-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-repeat: repeat-x;
+    animation: scroll 60s linear infinite;
+}
+
+.b1 {
+    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b1.png');
+    z-index: 1;
+    animation-duration: 60s;
+}
+
+.b2 {
+    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b2.png');
+    z-index: 2;
+    animation-duration: 50s;
+}
+
+.b3 {
+    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b3.png');
+    z-index: 3;
+    animation-duration: 40s;
+}
+
+.b4 {
+    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b4.png');
+    z-index: 4;
+    animation-duration: 30s;
+}
+
+.b5 {
+    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b5.png');
+    z-index: 5;
+    animation-duration: 20s;
+}
+
+.b6 {
+    background-image: url('C:/Users/HDkil/QuackAttack/pythonProject1/templates/b6.png');
+    z-index: 6;
+    animation-duration: 10s;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.leaderboard-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.leaderboard {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+}
