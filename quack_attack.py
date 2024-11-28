@@ -25,7 +25,7 @@ font = pygame.font.Font(None, 36)  # You can adjust the size as needed
 screen_width = 1920
 screen_height = 1080
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Quack Attack")
+pygame.display.set_caption("TANK COMMANDER: TACTICAL NEMESIS")
 clock = pygame.time.Clock()
 
 # Get the absolute path of the directory where the script is located
