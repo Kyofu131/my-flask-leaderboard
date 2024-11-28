@@ -6,6 +6,14 @@ import tkinter as tk
 from tkinter import filedialog
 import requests
 import json
+import portalocker
+
+def lock_file(file_path):
+    with open(file_path, 'r+') as file:
+        portalocker.lock(file, portalocker.LOCK_EX)
+        # Perform file operations
+        portalocker.unlock(file)
+
 
 # Initialize Pygame
 pygame.init()
@@ -1215,7 +1223,9 @@ def save_best_score(score):
         best_score = score
         try:
             with open("best_score.txt", "w") as file:
+                portalocker.lock(file, portalocker.LOCK_EX)  # Lock the file
                 file.write(str(score))
+                portalocker.unlock(file)  # Unlock the file
         except IOError:
             print("Failed to save the best score.")
 
@@ -1271,7 +1281,7 @@ def text_input(screen, prompt, font, clock):
     return text
 
 def submit_score(name, score):
-    url = 'https://your-heroku-app.herokuapp.com/submit_score'  # Update with your Heroku app URL
+    url = 'https://your-app-name.onrender.com/submit_score'
     data = {'name': name, 'score': score}
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, json=data, headers=headers)
