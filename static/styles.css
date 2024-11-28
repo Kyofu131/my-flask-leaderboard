@@ -16,37 +16,16 @@ body, html {
     animation: moveBackground 20s linear infinite;
 }
 
-.b1 {
-    background: url('/path/to/your/image1.jpg') repeat-x; /* Adjust the path to your image */
-}
-
-.b2 {
-    background: url('/path/to/your/image2.jpg') repeat-x; /* Adjust the path to your image */
-}
-
-.b3 {
-    background: url('/path/to/your/image3.jpg') repeat-x; /* Adjust the path to your image */
-}
-
-.b4 {
-    background: url('/path/to/your/image4.jpg') repeat-x; /* Adjust the path to your image */
-}
-
-.b5 {
-    background: url('/path/to/your/image5.jpg') repeat-x; /* Adjust the path to your image */
-}
-
-.b6 {
-    background: url('/path/to/your/image6.jpg') repeat-x; /* Adjust the path to your image */
-}
+.background-layer.b1 { background: url('/path/to/your/image1.jpg') repeat-x; }
+.background-layer.b2 { background: url('/path/to/your/image2.jpg') repeat-x; }
+.background-layer.b3 { background: url('/path/to/your/image3.jpg') repeat-x; }
+.background-layer.b4 { background: url('/path/to/your/image4.jpg') repeat-x; }
+.background-layer.b5 { background: url('/path/to/your/image5.jpg') repeat-x; }
+.background-layer.b6 { background: url('/path/to/your/image6.jpg') repeat-x; }
 
 @keyframes moveBackground {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 .leaderboard {
