@@ -774,7 +774,7 @@ def draw_lives(lives):
 def start_screen():
     screen.fill(WHITE)
     draw_background(screen, "quack_attack")  # Use the specific background
-    draw_text("Quack Attack", kenney_font_72, BLACK, screen_width // 2, screen_height // 2)
+    draw_text("TANK COMMANDER: TACTICAL NEMESIS", kenney_font_72, BLACK, screen_width // 2, screen_height // 2)
 
     pygame.display.flip()  # Update the screen
 
@@ -1238,9 +1238,10 @@ def load_best_score():
 
 load_best_score()
 
+
 # Function to handle text input on screen using Kenney font
-def text_input(screen, prompt, font, clock):
-    input_box = pygame.Rect(200, 300, 140, 32)
+def text_input(screen, prompt, font, clock, background_type=None, level=None):
+    input_box = pygame.Rect(200, 300, 400, 50)  # Fixed width for the input box
     color_inactive = pygame.Color('lightskyblue3')
     color_active = pygame.Color('dodgerblue2')
     color = color_inactive
@@ -1268,11 +1269,26 @@ def text_input(screen, prompt, font, clock):
                     else:
                         text += event.unicode
 
-        screen.fill((30, 30, 30))
-        txt_surface = font.render(prompt + text, True, color)
-        width = max(200, txt_surface.get_width() + 10)
-        input_box.w = width
+        # Draw the current background
+        if background_type:
+            draw_background(screen, background_type, level)
+
+        # Render the prompt and input text
+        prompt_surface = font.render(prompt, True, color)
+        txt_surface = font.render(text, True, color)
+
+        # Adjust positioning
+        prompt_x = screen_width // 2 - prompt_surface.get_width() // 2
+        prompt_y = screen_height // 2 - 100
+        input_box.center = (screen_width // 2, screen_height // 2)
+
+        # Draw the prompt text
+        screen.blit(prompt_surface, (prompt_x, prompt_y))
+
+        # Draw the input text within the fixed-size input box
         screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+
+        # Draw the text box
         pygame.draw.rect(screen, color, input_box, 2)
 
         pygame.display.flip()
@@ -1290,25 +1306,38 @@ def submit_score(name, score):
     else:
         print("Failed to submit score.")
 
-# Game over screen function
+
 def game_over_screen(current_level):
     global score, best_score
 
-    # Skip name input for levels 1 to 10 and Endless Mode
-    if current_level != "Endless Mode" and current_level != 1:
-        name = None
-    else:
-        name = text_input(screen, "Enter your name: ", kenney_font_36,
-                          clock)  # Display on-screen input prompt with Kenney font
+    # Determine the background type for the current level
+    background_type = "default"
+    if current_level in range(1, 10):
+        background_type = f"level_{current_level}"
+    elif current_level == 10:
+        background_type = "quack_attack"
+
+    # Draw the background for the current level
+    draw_background(screen, background_type, current_level)
+
+    # Skip name input for levels 1 to 10 and only show input in Endless Mode
+    name = None
+    if current_level == "Endless Mode":
+        draw_background(screen, selected_background)  # Ensure selected_background is defined in the endless_game_loop
+        name = text_input(screen, "Enter your name: ", kenney_font_36, clock, background_type=selected_background)
 
     if name:  # If a name is entered
         submit_score(name, score)  # Submit the score to the server
 
-    show_message("Game Over", 1)  # Display "Game Over" message
+    # Display "Game Over" message
+    show_message("Game Over", current_level)
+    pygame.display.update()  # Update the display to show the background and message
     pygame.time.wait(2000)  # Wait for 2 seconds to show the message
+
     if score > best_score:
         save_best_score(score)
     pygame.time.wait(2000)  # Wait for 2 seconds to show the message
+
     return "menu"
 
 def game_loop(level):
@@ -1430,7 +1459,7 @@ def endless_game_loop():
     global level_start_time, ai_cycle_timer, ai_state
     global lives, score, game_over, enemy_spawn_timer, bomb_spawn_timer, enemies_spawned, total_score, shield_regen_timer, enemies
     global shield_hits, shield_active, laser_active, laser_timer, kills_for_laser, laser_kills_needed, ammo, is_jumping, jump_velocity
-    global total_enemies_spawned, laser_duration, last_shot_time, game_over
+    global total_enemies_spawned, laser_duration, last_shot_time, game_over, selected_background  # Add selected_background
 
     lives, score, game_over = 3, 0, False
     laser_active, laser_timer, kills_for_laser = False, 0, 0

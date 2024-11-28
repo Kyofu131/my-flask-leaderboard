@@ -1,95 +1,73 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    overflow: hidden; /* Hide scrollbars */
     width: 100%;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
+    height: 100%;
 }
 
 .background-layer {
+    width: 200%; /* Double the width for seamless looping */
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    width: 120%; /* Ensure it covers the full width */
-    height: 100%; /* Ensure it covers the full height */
-    background-repeat: repeat-x;
-    background-size: cover; /* Make sure the image covers the entire element */
-    animation: scroll 60s linear infinite;
+    background-size: cover;
+    animation: moveBackground 20s linear infinite;
 }
 
 .b1 {
-    background-image: url('b1.png');
-    z-index: 1;
-    animation-duration: 60s;
+    background: url('/path/to/your/image1.jpg') repeat-x; /* Adjust the path to your image */
 }
 
 .b2 {
-    background-image: url('b2.png');
-    z-index: 2;
-    animation-duration: 50s;
+    background: url('/path/to/your/image2.jpg') repeat-x; /* Adjust the path to your image */
 }
 
 .b3 {
-    background-image: url('b3.png');
-    z-index: 3;
-    animation-duration: 40s;
+    background: url('/path/to/your/image3.jpg') repeat-x; /* Adjust the path to your image */
 }
 
 .b4 {
-    background-image: url('b4.png');
-    z-index: 4;
-    animation-duration: 30s;
+    background: url('/path/to/your/image4.jpg') repeat-x; /* Adjust the path to your image */
 }
 
 .b5 {
-    background-image: url('b5.png');
-    z-index: 5;
-    animation-duration: 20s;
+    background: url('/path/to/your/image5.jpg') repeat-x; /* Adjust the path to your image */
 }
 
 .b6 {
-    background-image: url('b6.png');
-    z-index: 6;
-    animation-duration: 10s;
+    background: url('/path/to/your/image6.jpg') repeat-x; /* Adjust the path to your image */
 }
 
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+@keyframes moveBackground {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .leaderboard {
-    position: relative;
-    z-index: 10;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    text-align: center; /* Ensures content inside leaderboard is centered */
-}
-
-h1 {
-    margin: 0;
-    margin-bottom: 20px;
-    font-size: 24px;
+    position: relative; /* Ensure leaderboard is not affected by the background animation */
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+    margin-top: 100px; /* Adjust margin to position the leaderboard */
 }
 
 table {
-    width: 100%;
+    width: 60%;
+    margin: auto;
     border-collapse: collapse;
 }
 
 th, td {
+    border: 1px solid #fff;
     padding: 10px;
-    text-align: center; /* Centers text inside table cells */
-    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better readability */
 }
