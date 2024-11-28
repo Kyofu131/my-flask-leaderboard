@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="icon" href="favicon-32x32.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .leaderboard {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="leaderboard">
+        <h1>Leaderboard</h1>
+        <table id="leaderboard-table">
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </table>
+    </div>
+    <script>
+        fetch('https://my-flask-leaderboard-2.onrender.com/leaderboard')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('leaderboard-table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>`;
+                data.forEach(player => {
+                    const row = document.createElement('tr');
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = player.name;
+                    const scoreCell = document.createElement('td');
+                    scoreCell.textContent = player.score;
+                    row.appendChild(nameCell);
+                    row.appendChild(scoreCell);
+                    table.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
